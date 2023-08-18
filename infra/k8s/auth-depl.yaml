@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: auth
-          image: godbolemahadev/auth
+          image: us.gcr.io/ticketing-dev-396308/auth
 
 ---
 # service is default clusterIP service

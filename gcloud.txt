@@ -1,0 +1,24 @@
+//install kubectl (no need if we want to use local one)
+$ gcloud components install kubectl
+//get cluster auth ()
+$gcloud container clusters get-credentials ticketing-dev
+
+//which one is running kubectl context
+//$ kubectl config get-contexts
+
+//To change docker use following command 
+$ kubectl config use-context docker-desktop
+
+
+//install gcloud ingress-nginx
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/cloud/deploy.yaml
+
+//for gcloud
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/cloud/deploy.yaml
+
+//modify host file for domain naming
+
+//erorr 
+https://stackoverflow.com/questions/74381993/error-in-using-gcloud-auth-application-default-login-cmd-in-gcloud-cli
+
+//check image name on all file
