@@ -22,3 +22,5 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 https://stackoverflow.com/questions/74381993/error-in-using-gcloud-auth-application-default-login-cmd-in-gcloud-cli
 
 //check image name on all file
+
+skaffold dev --cleanup=false
