@@ -1,0 +1,4 @@
+ installing mongoose
+ $ npm install express-async-errors --save
+ //install for mongoose type support
+ $npm install @types/mongoose

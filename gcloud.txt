@@ -24,3 +24,97 @@ https://stackoverflow.com/questions/74381993/error-in-using-gcloud-auth-applicat
 //check image name on all file
 
 skaffold dev --cleanup=false
+
+
+
+
+
+
+
+
+
+
+
+
+//kubernet running or not 
+// 17-08-2023
+
+kubectl version
+
+$ kubectl apply -f posts.yaml //run the yaml file (config)
+
+$ kubectl get pods // get all running pods
+
+// kubectl exec -it [pos_name] [cmd]
+
+// kubectl exec -it posts sh // open shell by using above command
+
+// kubectl logs posts
+
+// kubectl delete pod posts // delete pod
+
+Deployments:
+ // Get running deployments.
+ $ kubectl get deployments
+
+ // delete deployments.
+ $ kubectl delete deployments posts-depl
+
+ // info of deployments.
+ $ kubectl descrive deployment posts-depl
+
+ // Create Deployments.
+ $ kubectl apply -f posts-depl.yaml
+ 
+ //if some changes made in the deployment file(like change the version of it)
+ $ kubectl apply -f posts-depl.yaml
+ deployment.apps/posts-depl configured
+ 
+ // restart deployment
+ $ kubectl rollout restart deployment posts-depl
+
+ //to get logs of running pod
+ $ kubectl get pods
+ $ kubectl logs posts-depl-7b46986b86-8s6lh
+
+
+Services: (this services inside kubernet)
+    // Created services
+    $ kubectl apply -f posts-srv.yaml
+
+
+    $ kubectl get services ///NodePort 3xxxx is used to access from outside
+
+    $ kubectl describe service posts-srvke
+
+//restart deployment when any change made in code.
+ $ kubectl rollout restart deployment event-bus-depl
+
+
+
+//install kubectl (no need if we want to use local one)
+$ gcloud components install kubectl
+//get cluster auth ()
+$gcloud container clusters get-credentials ticketing-dev
+
+//which one is running kubectl context
+//$ kubectl config get-contexts
+
+//To change docker use following command 
+$ kubectl config use-context docker-desktop
+
+
+//install gcloud ingress-nginx
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/cloud/deploy.yaml
+
+//for gcloud
+kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/controller-v1.8.1/deploy/static/provider/cloud/deploy.yaml
+
+//modify host file for domain naming
+
+//erorr 
+https://stackoverflow.com/questions/74381993/error-in-using-gcloud-auth-application-default-login-cmd-in-gcloud-cli
+
+//check image name on all file
+
+skaffold dev --cleanup=false

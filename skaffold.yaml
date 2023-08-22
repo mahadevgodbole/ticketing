@@ -15,6 +15,7 @@ build:
   artifacts:
     # - image: godbolemahadev/auth
     - image: us.gcr.io/ticketing-dev-396308/auth
+    
 
     # directory which containe auth image code
       context: auth
