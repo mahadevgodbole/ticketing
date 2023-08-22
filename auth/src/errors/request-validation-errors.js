@@ -20,7 +20,7 @@ const {CustomError} = require('./custom-error');
 
     constructor(errors) {
         super("Invalid request parameters");
-
+        this.errors=errors
         //Only beacuse we are extending a built in class
     }
 

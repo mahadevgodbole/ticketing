@@ -1,6 +1,7 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
+const cookieSession = require("cookie-session")
 
 const currentUserRouter = require('./src/routes/current-user');
 const signinRouter = require('./src/routes/signin');
@@ -10,9 +11,15 @@ const errorHandler = require('./src/middleware/error-handler');
 const { NotFoundError } = require('./src/errors/not-found-error');
 
 const app=express();
+app.set('trust proxy',true);
 
 app.use(express.json());
-
+app.use(
+    cookieSession({
+        signed:false,
+        // secure: true //https connection
+    })
+)
 
 app.use("/",currentUserRouter);
 app.use("/",signinRouter);

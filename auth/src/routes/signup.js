@@ -1,5 +1,8 @@
 const express = require("express");
-require('express-async-errors');
+require('express-async-errors');//to use throw inteaded of next in hanlder fuction
+const jwt =require("jsonwebtoken")
+
+
 const { body, validationResult } = require("express-validator");
 const { RequestValidationError } = require("../errors/request-validation-errors");
 const { DatabaseConnectionError } = require("../errors/database-connection-errors");
@@ -41,7 +44,15 @@ router.post('/api/users/signup', [
         throw new BadRequestError('Email in use');
     }
     const hashedPassword = bcrypt.hashSync(password);
-    const user = User.create({ email, hashedPassword});
+    const user = await User.create({ email, hashedPassword});
+
+    //JWT Generation
+    const userJwt=jwt.sign({
+        id:user.id,email:user.email
+    },"asdf");
+
+    //store on session object
+    req.session={jwt:userJwt};
 
 
     res.status(201).send({
