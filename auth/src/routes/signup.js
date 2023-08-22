@@ -1,9 +1,12 @@
-import express, {Request, Response} from "express";
-import {body, validationResult } from 'express-validator';
-import { RequestValidationError } from "../errors/request-validation-errors";
-import { DatabaseConnectionError } from "../errors/database-connection-errors";
-import { User } from  '../models/user';
-import { BadRequestError } from "../errors/bad-request-error";
+const express = require("express");
+require('express-async-errors');
+const { body, validationResult } = require("express-validator");
+const { RequestValidationError } = require("../errors/request-validation-errors");
+const { DatabaseConnectionError } = require("../errors/database-connection-errors");
+const User  = require("../models/user");
+const { BadRequestError } = require("../errors/bad-request-error");
+
+const bcrypt= require("bcryptjs");
 
 const router= express.Router();
 
@@ -19,7 +22,7 @@ router.post('/api/users/signup', [
         .isLength({min:4,max:20})
         .withMessage('Password must be between 4 and 20 characters.')
 ] 
-, async (req: Request, res: Response) =>{
+, async (req,res) =>{
 
     //send error to user
     const errors=validationResult(req);
@@ -37,12 +40,13 @@ router.post('/api/users/signup', [
 
         throw new BadRequestError('Email in use');
     }
+    const hashedPassword = bcrypt.hashSync(password);
+    const user = User.create({ email, hashedPassword});
 
-    const user = User.build({ email, password});
 
-    await user.save();
-
-    res.status(201).send(user);
+    res.status(201).send({
+        email,password
+    });
 })
 
-export  { router as signupRouter};
+module.exports = router;

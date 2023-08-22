@@ -1,14 +1,13 @@
-import { CustomError } from "./custom-error";
+const {CustomError} = require('./custom-error');
 
-export class DatabaseConnectionError extends CustomError{
+
+class DatabaseConnectionError extends CustomError{
 
     reason = "Error connecting to database";
     statusCode=500;
 
     constructor(){
         super("Error connecting to database");
-
-        Object.setPrototypeOf(this,DatabaseConnectionError.prototype)
     }
 
     serializeErrors(){
@@ -19,3 +18,4 @@ export class DatabaseConnectionError extends CustomError{
         ]
     }
 }
+module.exports = { DatabaseConnectionError };

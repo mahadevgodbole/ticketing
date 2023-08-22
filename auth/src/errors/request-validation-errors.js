@@ -1,5 +1,6 @@
-import { ValidationError } from "express-validator";
-import { CustomError } from "./custom-error";
+
+const {CustomError} = require('./custom-error');
+
 
 // implements CustomError
 // interface CustomError {
@@ -13,16 +14,14 @@ import { CustomError } from "./custom-error";
 
 
 
-export class RequestValidationError extends CustomError  {
+ class RequestValidationError extends CustomError  {
 
     statusCode = 400;
 
-    constructor(public errors: ValidationError[]) {
+    constructor(errors) {
         super("Invalid request parameters");
 
         //Only beacuse we are extending a built in class
-
-        Object.setPrototypeOf(this, RequestValidationError.prototype);
     }
 
     serializeErrors() {
@@ -31,6 +30,7 @@ export class RequestValidationError extends CustomError  {
         })
     }
 }
+module.exports = { RequestValidationError };
 
 // // throw new RequestValidationError(errors);
 // if (error.type === 'alternative') {
