@@ -1,7 +1,8 @@
 
 const express = require('express');
 const mongoose = require('mongoose');
-const cookieSession = require("cookie-session")
+const cookieSession = require("cookie-session");
+require('express-async-errors');
 
 const currentUserRouter = require('./src/routes/current-user');
 const signinRouter = require('./src/routes/signin');
@@ -17,7 +18,7 @@ app.use(express.json());
 app.use(
     cookieSession({
         signed:false,
-        // secure: true //https connection
+        secure: true //https connection
     })
 )
 
@@ -40,12 +41,18 @@ app.use(errorHandler);
 
 
 const start = async() =>{
+
+  
+    if (!process.env.JWT_KEY){
+        throw new Error("JWT_KEY not defined");
+    }
+    
     // await mongoose.connect("mongodb://localhost")
     try{
         console.log("Connnecting")
 
-        // const dbURI = 'mongodb://auth-mongo-srv:27017/auth';
-        const DATABASE="mongodb+srv://mahadev:mahadev@cluster0.zlmulle.mongodb.net/auth?retryWrites=true&w=majority";
+        const DATABASE = 'mongodb://auth-mongo-srv:27017/auth';
+        // const DATABASE="mongodb+srv://mahadev:mahadev@cluster0.zlmulle.mongodb.net/auth?retryWrites=true&w=majority";
    
 
         await mongoose.connect(DATABASE)
@@ -58,6 +65,6 @@ const start = async() =>{
         console.log("Listening on port 3000!!!");
     })
 }
-start();
-// setTimeout(start, 10000)
+// start();
+setTimeout(start, 9000)
 ;

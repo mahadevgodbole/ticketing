@@ -19,6 +19,13 @@ spec:
       containers:
         - name: auth
           image: us.gcr.io/ticketing-dev-396308/auth
+          env:
+            - name: JWT_KEY #name in container
+              valueFrom:
+                secretKeyRef:
+                  name: jwt-secret
+                  key:  JWT_KEY #key in kubernet secrets
+
 
 ---
 # service is default clusterIP service

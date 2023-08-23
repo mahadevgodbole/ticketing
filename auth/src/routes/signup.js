@@ -1,17 +1,16 @@
 const express = require("express");
 require('express-async-errors');//to use throw inteaded of next in hanlder fuction
-const jwt =require("jsonwebtoken")
-
-
+const jwt = require("jsonwebtoken")
+const  validateRequest  = require("../middleware/validation-request")
+// const Password = require("../services/passsword")
 const { body, validationResult } = require("express-validator");
-const { RequestValidationError } = require("../errors/request-validation-errors");
 const { DatabaseConnectionError } = require("../errors/database-connection-errors");
-const User  = require("../models/user");
+const User = require("../models/user");
 const { BadRequestError } = require("../errors/bad-request-error");
 
-const bcrypt= require("bcryptjs");
+const bcrypt = require("bcryptjs");
 
-const router= express.Router();
+const router = express.Router();
 
 
 
@@ -22,42 +21,42 @@ router.post('/api/users/signup', [
 
     body('password')
         .trim()
-        .isLength({min:4,max:20})
+        .isLength({ min: 4, max: 20 })
         .withMessage('Password must be between 4 and 20 characters.')
-] 
-, async (req,res) =>{
+]
+    ,
+    validateRequest
+    , async (req, res) => {
 
-    //send error to user
-    const errors=validationResult(req);
-    if (!errors.isEmpty()){
-        throw new RequestValidationError(errors.array());
-    }
+        const { email, password } = req.body;
 
-    const { email, password } = req.body;
+        const existingUser = await User.findOne({ email });
 
-    const existingUser = await User.findOne({email});
+        if (existingUser) {
+            // console.log("Email in use");
+            // return res.send({});
+
+            throw new BadRequestError('Email in use');
+        }
     
-    if (existingUser){
-        // console.log("Email in use");
-        // return res.send({});
+        const user = await User.create({ email, password });
 
-        throw new BadRequestError('Email in use');
-    }
-    const hashedPassword = bcrypt.hashSync(password);
-    const user = await User.create({ email, hashedPassword});
+        
+        if (!process.env.JWT_KEY) {
+            throw new Error("JWT_KEY not defined");
+        }
+        //JWT Generation
+        const userJwt = jwt.sign({
+            id: user.id, email: user.email
+        },process.env.JWT_KEY);
 
-    //JWT Generation
-    const userJwt=jwt.sign({
-        id:user.id,email:user.email
-    },"asdf");
-
-    //store on session object
-    req.session={jwt:userJwt};
+        //store on session object
+        req.session = { jwt: userJwt };
 
 
-    res.status(201).send({
-        email,password
-    });
-})
+        res.status(201).send({
+            user
+        });
+    })
 
 module.exports = router;
