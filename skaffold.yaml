@@ -25,3 +25,15 @@ build:
         manual:
           - src:  'src/**/*.js'
             dest: .
+
+    - image: us.gcr.io/ticketing-dev-396308/client
+    
+
+    # directory which containe auth image code
+      context: client
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src:  '**/*.js'
+            dest: .

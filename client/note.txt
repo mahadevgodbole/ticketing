@@ -1,0 +1,3 @@
+npm run dev// run
+$ k delete pod client-depl-86b7569f5d-p64fk 
+$ k get pods

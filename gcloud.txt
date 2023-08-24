@@ -78,6 +78,11 @@ Deployments:
  $ kubectl logs posts-depl-7b46986b86-8s6lh
 
 
+//to get namespace.
+$ k get namespace
+//list this particular namespace services by using -n flag and name space name 
+$ kubectl get services -n ingress-nginx
+
 Services: (this services inside kubernet)
     // Created services
     $ kubectl apply -f posts-srv.yaml
