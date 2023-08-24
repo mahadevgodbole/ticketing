@@ -2,14 +2,12 @@
 
 const express = require('express');
 const cookieSession = require("cookie-session");
-require('express-async-errors');
-
+require('express-async-errors');//to use throw inteaded of next in hanlder fuction
+const {errorHandler,NotFoundError}=require("@godbole/common");
 const currentUserRouter = require('./routes/current-user');
 const signinRouter = require('./routes/signin');
 const signoutRouter = require('./routes/signout');
 const signupRouter = require('./routes/signup');
-const errorHandler = require('./middleware/error-handler');
-const { NotFoundError } = require('./errors/not-found-error');
 
 const app=express();
 app.set('trust proxy',true);

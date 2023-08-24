@@ -123,3 +123,7 @@ https://stackoverflow.com/questions/74381993/error-in-using-gcloud-auth-applicat
 //check image name on all file
 
 skaffold dev --cleanup=false
+
+
+
+ kubectl exec -it auth-depl-78cfc8bbb8-xxchw   sh

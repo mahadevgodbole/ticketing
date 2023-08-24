@@ -2,8 +2,7 @@ const express = require("express");
 const User = require("../models/user");
 const jwt = require("jsonwebtoken")
 const { body } = require("express-validator");
-const validateRequest = require("../middleware/validation-request");
-const { BadRequestError } = require("../errors/bad-request-error");
+const {validateRequest,BadRequestError} = require("@godbole/common")
 const Password = require("../services/passsword")
 
 const router = express.Router();

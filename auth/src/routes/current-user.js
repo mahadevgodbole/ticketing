@@ -1,7 +1,8 @@
+
 const express = require("express")
 const jwt = require("jsonwebtoken");
-const requireAuth=require("../middleware/require-auth")
-const currentUser =require("../middleware/currentuser")
+
+const {currentUser} =require("@godbole/common")
 
 const router = express.Router();
 
