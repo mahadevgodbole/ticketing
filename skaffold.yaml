@@ -29,7 +29,7 @@ build:
     - image: us.gcr.io/ticketing-dev-396308/client
     
 
-    # directory which containe auth image code
+    # directory which containe client image code
       context: client
       docker:
         dockerfile: Dockerfile
@@ -37,3 +37,15 @@ build:
         manual:
           - src:  '**/*.js'
             dest: .
+            
+    - image: us.gcr.io/ticketing-dev-396308/tickets
+    # directory which containe ticket image code
+      context: tickets
+      docker:
+        dockerfile: Dockerfile
+      sync:
+        manual:
+          - src:  'src/**/*.js'
+            dest: .
+
+    
