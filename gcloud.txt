@@ -72,7 +72,9 @@ Deployments:
  
  // restart deployment
  $ kubectl rollout restart deployment posts-depl
-kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
+// kubectl delete -A ValidatingWebhookConfiguration ingress-nginx-admission
+
  //to get logs of running pod
  $ kubectl get pods
  $ kubectl logs posts-depl-7b46986b86-8s6lh
