@@ -5,6 +5,8 @@ require('express-async-errors');//to use throw inteaded of next in hanlder fucti
 const {errorHandler,NotFoundError,currentUser}=require("@godbole/common");
 const {showTicketRouter}=require("./routes/show")
 const {CreateTicketRouter}=require("./routes/new");
+const {indexTicketRouter}=require("./routes/index")
+const {updateTicketRouter}=require("./routes/update")
 
 const app=express();
 app.set('trust proxy',true);
@@ -18,10 +20,12 @@ app.use(
     })
 )
 
-app.use(currentUser)
+app.use(currentUser);
 
-app.use("/",CreateTicketRouter)
+app.use("/",CreateTicketRouter);
 app.use("/",showTicketRouter);
+app.use("/",indexTicketRouter);
+app.use("/",updateTicketRouter);
 
 // //if route not found then throw error and capture by below errorHandler
 app.all("*",async ()=>{
