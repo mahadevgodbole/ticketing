@@ -126,5 +126,17 @@ kubectl apply -f https://raw.githubusercontent.com/kubernetes/ingress-nginx/cont
 skaffold dev --cleanup=false
 
 
+// go inside the teminal
+ kubectl exec -it auth-depl-78cfc8bbb8-xxchw   sh 
 
- kubectl exec -it auth-depl-78cfc8bbb8-xxchw   sh
+ // port forwarding
+ $ kubectl port-forward deploymentsName 4222:4222
+$ kubectl port-forward nats-depl-86bc9cfdb8-zsxm8 4222:4222
+
+
+//to go into monitoring service
+$kubectl port-forward nats-depl-7db977c6fd-2mkk5 8222:8222
+
+//service address
+
+http://localhost:8222/streaming
